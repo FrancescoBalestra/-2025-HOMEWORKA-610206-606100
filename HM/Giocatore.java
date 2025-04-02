@@ -1,8 +1,9 @@
 package HM;
 
 public class Giocatore {
-    private static final int CFU_INIZIALI = 3; // Valore predefinito dei CFU
+    private static final int CFU_INIZIALI = 10; // Valore predefinito dei CFU
     public int cfu;
+    public Borsa borsa;
 
     /**
      * Costruttore della classe Giocatore.
@@ -10,6 +11,7 @@ public class Giocatore {
      */
     public Giocatore() {
         this.cfu = CFU_INIZIALI;
+        borsa = new Borsa();
     }
 
     /**

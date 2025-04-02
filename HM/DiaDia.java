@@ -24,15 +24,13 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "rimuovi", "inventario"};
 
  	private Partita partita;
- 	private Stanza stanza;
- 	private Attrezzo att;
  	
 	public DiaDia() {
 		this.partita = new Partita();
-	}
+			}
 
 	public void gioca() {
 		String istruzione; 
@@ -78,10 +76,14 @@ public class DiaDia {
 	            this.aiuto();
 	            return true;
 	        
-	       /* case "prendi":
-	        	this.prendi();
+	        case "prendi":
+	        	this.prendi(comandoDaEseguire.getParametro());
 	        	return true;
-	        	*/
+	        
+	        case "inventario":
+	        	this.inventario();
+	        	return true;
+	        	
 	        default:
 	            System.out.println("Comando sconosciuto");
 	            return true;
@@ -115,21 +117,42 @@ public class DiaDia {
 			System.out.println("Direzione inesistente");
 		else {
 			this.partita.lab.setStanzaCorrente(prossimaStanza);
-			/*int cfu = this.partita.gio.getCfu();*/
-			this.partita.gio.decrementaCfu();													// utilizzo di decrementaCfu
-			//scrivo cfu - 1 al posto di cfu--	è diventato inutile								// per isolare i cfu dalla classe
-		}																						// iniziale
+			this.partita.gio.decrementaCfu();													// utilizzo di decrementaCfu per isolare 
+		}																						// i cfu dalla classe iniziale
 		System.out.println(partita);
 	}
 	
 	/*
 	 *  Comando "prendi"
 	 */
-	/*private void prendi(String attrezzo) {
-		if(attrezzo==null) {
-			System.out.println("Che cosa vuoi prendere ?");
-		}
-		Attrezzo attCorr = this.getAttrezzo().;
+	private void prendi(String nomeAttrezzo) {
+	    if (nomeAttrezzo == null) {
+	        System.out.println("Che cosa vuoi prendere?");
+	        return;
+	    }
+
+	    Stanza stanzaCorrente = this.partita.lab.getStanzaCorrente();
+	    
+	    if (!stanzaCorrente.hasAttrezzo(nomeAttrezzo)) {
+	        System.out.println("L'attrezzo '" + nomeAttrezzo + "' non è presente nella stanza.");
+	        return;
+	    }
+
+	    Attrezzo attrezzoDaPrendere = stanzaCorrente.getAttrezzo(nomeAttrezzo);
+	    
+	    if (this.partita.gio.borsa.addAttrezzo(attrezzoDaPrendere)) { // Se l'attrezzo è stato preso
+	        stanzaCorrente.removeAttrezzo(nomeAttrezzo);
+	        System.out.println("Hai preso: " + nomeAttrezzo);
+	    } else {
+	        System.out.println("Non puoi prendere '" + nomeAttrezzo + "', la borsa è piena o troppo pesante.");
+	    }
+	}
+	
+	/*
+	 * Comando inventario
+	 */
+	public void inventario() {
+		System.out.println(partita.gio.borsa.toString());
 	}
 	
 	/**

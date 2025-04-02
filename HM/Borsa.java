@@ -20,6 +20,7 @@ public class Borsa {
 			return false;
 		this.attrezzi[this.numeroAttrezzi] = attrezzo;
 		this.numeroAttrezzi++;
+		System.out.println("Attrezzo preso!");
 		return true;
 	}
 	public int getPesoMax() {
@@ -27,12 +28,12 @@ public class Borsa {
 	}
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		for (int i= 0; i<this.numeroAttrezzi; i++) {
+		for (int i= 0; i<this.numeroAttrezzi;i++) {
 			if (this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-				a = attrezzi[i];
+				Attrezzo a = attrezzi[i];
 			}
-			return a;
 		}
+		return a;
 	}
 	public int getPeso() {
 		int peso = 0;
@@ -79,5 +80,6 @@ public class Borsa {
 			s.append("Borsa vuota");
 			return s.toString();
 		}
+		return s.toString();
 	}
 }
