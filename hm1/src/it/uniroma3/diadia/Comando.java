@@ -31,14 +31,17 @@ public class Comando {
 		scannerDiParole.close();							// implemento la chiusura dello scanner per la memoria
     }
 
+    //funzione che restituisce il nome del comando
     public String getNome() {
         return this.nome;
     }
 
+    //funzione che restituisce il parametro del comando
     public String getParametro() {
         return this.parametro;
     }
 
+    
     public boolean sconosciuto() {
         return (this.nome == null);
     }

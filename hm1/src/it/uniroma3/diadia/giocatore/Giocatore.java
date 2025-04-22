@@ -1,7 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
 public class Giocatore {
-    private static final int CFU_INIZIALI = 10; // Valore predefinito dei CFU abbassato per l'immediatezza dei test
+    private static final int CFU_INIZIALI = 20; // Valore predefinito dei CFU abbassato per l'immediatezza dei test
     public int cfu;
     public Borsa borsa;
 
