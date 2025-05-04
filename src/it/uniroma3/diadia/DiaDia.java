@@ -31,22 +31,20 @@ public class DiaDia {
 	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa", "borsa"};
 
  	private Partita partita;
+ 	private IOConsole io;
  	
 	public DiaDia() {
 		this.partita = new Partita();
+		this.io = new IOConsole();
 			}
 
 	public void gioca() {
 		String istruzione; 
-		Scanner scannerDiLinee;
-
-		System.out.println(MESSAGGIO_BENVENUTO);
-		scannerDiLinee = new Scanner(System.in);		
+		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
 		do		
-			istruzione = scannerDiLinee.nextLine();
+			istruzione = io.leggiRiga();
 		while (processaIstruzione(istruzione));				// Tolto il ! perché rendeva impossibile il commento del
 	   														// docente in merito al return del commento sottostante
-		scannerDiLinee.close();								// implemento la chiusura dello scanner per la memoria
 	}
 
 	/**
@@ -65,11 +63,11 @@ public class DiaDia {
 		        this.vai(comandoDaEseguire.getParametro());
 			    if(this.partita.isFinita())  { 						// se è finita la partita
 		        	if (this.partita.vinta()) {						// e se la partita è vinta
-			        	System.out.println("Hai vinto!");			// messaggio di vittoria
+			        	io.mostraMessaggio("Hai vinto!");			// messaggio di vittoria
 		            	return false;								// interruzione del gioco
 		        	}
 		        	else {
-		        		System.out.println("Hai perso! Hai finito i CFU!"); // è finita la partita ma non si hanno più cfu
+		        		io.mostraMessaggio("Hai perso! Hai finito i CFU!"); // è finita la partita ma non si hanno più cfu
 		        		return false;										// interruzione del gioco
 		        	}
 			    }
@@ -93,7 +91,7 @@ public class DiaDia {
 	        	return true;									// continuazione del gioco
 	        	
 	        default:
-	            System.out.println("Comando sconosciuto");		// messaggio di errore
+	        	io.mostraMessaggio("Comando sconosciuto");		// messaggio di errore
 	            return true;									// continuazione del gioco
 	    }
 }
@@ -107,27 +105,29 @@ public class DiaDia {
 	 * Stampa informazioni di aiuto.
 	 */
 	private void aiuto() {
+		io.mostraMessaggio("-------------------");
 		for(int i=0; i< elencoComandi.length; i++) 
-			System.out.print(elencoComandi[i]+" ");
-		System.out.println();
+			io.mostraMessaggio("       "+elencoComandi[i]);
+		io.mostraMessaggio("-------------------");
 	}
-
+	
+	
 	/**
 	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra 
 	 * e ne stampa il nome, altrimenti stampa un messaggio di errore
 	 */
 	private void vai(String direzione) {
 		if(direzione==null)
-			System.out.println("Dove vuoi andare ?");
+			io.mostraMessaggio("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
 		prossimaStanza = this.partita.lab.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
-			System.out.println("Direzione inesistente");
+			io.mostraMessaggio("Direzione inesistente");
 		else {
 			this.partita.lab.setStanzaCorrente(prossimaStanza);
 			this.partita.gio.decrementaCfu();													// utilizzo di decrementaCfu per isolare 
 		}																						// i cfu dalla classe iniziale
-		System.out.println(partita);
+		io.mostraMessaggio(partita.toString());
 	}
 	
 	/*
@@ -135,21 +135,21 @@ public class DiaDia {
 	 */
 	private void prendi(String nomeAttrezzo) {
 		if (nomeAttrezzo == null) {								// se l'utente ha solo scritto prendi
-	        System.out.println("Che cosa vuoi prendere?");
+			io.mostraMessaggio("Che cosa vuoi prendere?");
 	        return;
 	    }
 	    Stanza stanzaCorrente = this.partita.lab.getStanzaCorrente();	   	// inizializzo la stanza in cui mi trovo
 	    if (!stanzaCorrente.hasAttrezzo(nomeAttrezzo)) {					// se nella stanza non c'è l'attrezzo che vuole l'utente 
-	        System.out.println("L'attrezzo '" + nomeAttrezzo + "' non è presente nella stanza.");
+	    	io.mostraMessaggio("L'attrezzo '" + nomeAttrezzo + "' non è presente nella stanza.");
 	        return;
 	    }
 	    Attrezzo attrezzoDaPrendere = stanzaCorrente.getAttrezzo(nomeAttrezzo);		// prendo l'attrezzo dalla stanza
 	    if (this.partita.gio.borsa.addAttrezzo(attrezzoDaPrendere)) { 				// metto l'attrezzo nella borsa
 	        stanzaCorrente.removeAttrezzo(nomeAttrezzo);							// rimuovo l'attrezzo dalla stanza
-	        System.out.println("Hai preso: " + nomeAttrezzo);						// messaggio di conferma
+	        io.mostraMessaggio("Hai preso: " + nomeAttrezzo);						// messaggio di conferma
 	    } 
 	    else {
-	        System.out.println("Non puoi prendere '" + nomeAttrezzo + "', la borsa è piena o troppo pesante.");		// messaggio di errore generico
+	    	io.mostraMessaggio("Non puoi prendere '" + nomeAttrezzo + "', la borsa è piena o troppo pesante.");		// messaggio di errore generico
 	    }
 	}
 	
@@ -159,11 +159,11 @@ public class DiaDia {
 	private void posa(String nomeAttrezzo) {
 		
 		if(this.partita.gio.borsa.isEmpty()) {											// se la borsa è piena
-			System.out.println("Non puoi rimuovere nulla perché la borsa è vuota!");	// messaggio di errore
+			io.mostraMessaggio("Non puoi rimuovere nulla perché la borsa è vuota!");	// messaggio di errore
 			return;
 		}
 		if (nomeAttrezzo == null) {														// se l'utente ha solo scritto rimuovi
-	        System.out.println("Che cosa vuoi rimuovere?");
+			io.mostraMessaggio("Che cosa vuoi rimuovere?");
 	        return;
 	    }
 		Borsa borsaCorrente = this.partita.gio.borsa;									// inizializza la borsa 
@@ -172,10 +172,10 @@ public class DiaDia {
 			borsaCorrente.removeAttrezzo(nomeAttrezzo);									// rimuovo l'attrezzo dalla borsa
 			Stanza stanzaCorrente = this.partita.lab.getStanzaCorrente();				// inizializzo la stanza in cui mi trovo
 			stanzaCorrente.addAttrezzo(attrezzoDaRimuovere);							// poso l'attrezzo nella sanza
-			System.out.println("Hai rimosso dall'inventario "+ nomeAttrezzo + " e lo hai posato in "+ stanzaCorrente );		// messaggio di conferma
+			io.mostraMessaggio("Hai rimosso dall'inventario "+ nomeAttrezzo + " e lo hai posato in "+ stanzaCorrente );		// messaggio di conferma
 		}
 		else {
-			System.out.println("L'attrezzo che vuoi eliminare non è nella tua borsa!");		// messaggio di errore attrezzo non trovato nella borsa
+			io.mostraMessaggio("L'attrezzo che vuoi eliminare non è nella tua borsa!");		// messaggio di errore attrezzo non trovato nella borsa
 		}
 	}
 	
@@ -184,18 +184,37 @@ public class DiaDia {
 	 * Comando inventario
 	 */
 	public void inventario() {
-		System.out.println(partita.gio.borsa.toString());			// visualizza con una stampa cosa è presente nella borsa
+		io.mostraMessaggio(partita.gio.borsa.toString());			// visualizza con una stampa cosa è presente nella borsa
 	}
 	
 	/**
 	 * Comando "Fine".
 	 */
 	private void fine() {
-		System.out.println("Grazie di aver giocato!");  // si desidera smettere
+		io.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
 	}
 
 	public static void main(String[] argc) {
 		DiaDia gioco = new DiaDia();
 		gioco.gioca();
 	}
+	
+	
+	
+	
+	public class IOConsole {
+
+		public void mostraMessaggio(String msg) {
+			System.out.println(msg);
+		}
+
+		public String leggiRiga() {
+			Scanner scannerDiLinee = new Scanner(System.in);
+			String riga = scannerDiLinee.nextLine();
+			//scannerDiLinee.close();
+			return riga;
+		}
+	}
+
+
 }
