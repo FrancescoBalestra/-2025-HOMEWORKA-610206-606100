@@ -1,3 +1,9 @@
-module hm1 {
+/**
+ * 
+ */
+/**
+ * 
+ */
+module HM1 {
 	requires org.junit.jupiter.api;
 }

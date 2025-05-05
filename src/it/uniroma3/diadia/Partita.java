@@ -26,6 +26,24 @@ public class Partita {
 		this.finita = false;		// inizializzo la partita come non ancora finita
 	}
 	
+	public Labirinto getLabirinto() {
+		return lab;
+	}
+	
+	public void setLabirinto(Labirinto lab) {
+		this.lab = lab;
+	}
+	
+	public Giocatore getGiocatore() {
+		return gio;
+	}
+	
+	public void setGiocatore(Giocatore gio) {
+		this.gio = gio;
+	}
+	public boolean giocatoreIsVivo() {
+		return this.gio.getCfu()>0;
+	}
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
 	 * @return vero se partita vinta
@@ -39,7 +57,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (this.gio.cfu == 0);			// la partita finisce se è vinta o si finiscono i cfu 
+		return finita || vinta() || (this.getGiocatore().getCfu() == 0);			// la partita finisce se ï¿½ vinta o si finiscono i cfu 
 	}
 
 	/**
@@ -51,5 +69,13 @@ public class Partita {
 	
 	public String toString() {
 		return this.lab.getStanzaCorrente() + "\nCfu = " + this.gio.getCfu();	// descrizione della stanza + quanti cfu mancano
+	}
+	
+	public Stanza getStanzaCorrente() {
+		return this.lab.getStanzaCorrente();
+	}
+	
+	public void setStanzaCorrente(Stanza stanza) {
+		this.lab.setStanzaCorrente(stanza);
 	}
 }

@@ -1,10 +1,9 @@
 package it.uniroma3.diadia.giocatore;
-
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
  * classe che si occupa di modellare una borsa 
- * La borsa ha una capienza massima oltre la quale non può contenere altri oggetti
+ * La borsa ha una capienza massima oltre la quale non puï¿½ contenere altri oggetti
  * 
  * 
  * @author utente
@@ -31,7 +30,7 @@ public class Borsa {
 	//funzione che aggiunge un attrezzo all'interno della borsa 
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		
-		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())		//se l'oggetto è troppo pesante per essere contenuto nella borsa
+		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())		//se l'oggetto ï¿½ troppo pesante per essere contenuto nella borsa
 			return false;													//la funzione ritorna false
 		
 		if (this.numeroAttrezzi==10)										//se ho raggiunto il numero massimo di oggetti contenuti in borsa 
@@ -68,12 +67,17 @@ public class Borsa {
 		return peso;
 	}
 	
-	//controlla se la borsa è vuota
+	//controlla se la borsa ï¿½ vuota
 	public boolean isEmpty() {
 		return this.numeroAttrezzi == 0;
 	}
 	
-
+	public boolean getPesoRimanente(Attrezzo a) {
+		if(a != null && this.getPesoMax()-this.getPeso()>=a.getPeso())
+			return true;
+		return false; 
+	}
+	
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.getAttrezzo(nomeAttrezzo)!=null;
 	}

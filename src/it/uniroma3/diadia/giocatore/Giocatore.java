@@ -1,39 +1,31 @@
 package it.uniroma3.diadia.giocatore;
 
 public class Giocatore {
-    private static final int CFU_INIZIALI = 20; // Valore predefinito dei CFU abbassato per l'immediatezza dei test
-    public int cfu;
-    public Borsa borsa;
+	static final private int CFU_INIZIALI = 20;
 
-    /**
-     * Costruttore della classe Giocatore.
-     * Inizializza i CFU e crea una nuova borsa.
-     */
-    public Giocatore() {
-        this.cfu = CFU_INIZIALI;		// inizializza i cfu che si hanno in partenza
-        borsa = new Borsa();			// inizializza la borsa
-    }
+	private int cfu;
+	private Borsa borsa;
 
-    /**
-     * Restituisce il numero di CFU attuali del giocatore.
-     * @return CFU attuali.
-     */
-    public int getCfu() {
-        return this.cfu;
-    }
+	public Giocatore() {
+		this.cfu = CFU_INIZIALI;
+		this.borsa = new Borsa();
+	}
 
-    /**
-     * Imposta i CFU del giocatore.
-     * @param cfu Nuovo valore dei CFU.
-     */
-    public void setCfu(int cfu) {
-        this.cfu = cfu;
-    }
+	public int getCfu() {
+		return this.cfu;
+	}
 
-    /**
-     * Decrementa i CFU del giocatore di 1.
-     */
-    public void decrementaCfu() {
-        this.cfu -= 1;
-    }
+	public void setCfu(int cfu) {
+		this.cfu = cfu;		
+	}
+
+	public Borsa getBorsa() {
+		return borsa;
+	}
+
+	public void setBorsa(Borsa borsa) {
+		this.borsa = borsa;
+	}	
+	
+	
 }
