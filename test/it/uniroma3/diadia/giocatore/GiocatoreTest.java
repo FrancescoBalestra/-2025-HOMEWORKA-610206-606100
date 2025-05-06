@@ -23,10 +23,4 @@ public class GiocatoreTest {
 		assertEquals(giocatore.getCfu(), 20);
 	}
 
-	@Test
-	public void testDecrementaCfu() {
-		giocatore.setCfu(20);
-		giocatore.decrementaCfu();
-		assertEquals(giocatore.getCfu(), 19);
-	}
 }

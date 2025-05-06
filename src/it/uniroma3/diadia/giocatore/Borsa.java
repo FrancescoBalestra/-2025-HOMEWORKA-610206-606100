@@ -37,8 +37,7 @@ public class Borsa {
 			return false;													//la funzione ritorna false
 		
 		this.attrezzi[this.numeroAttrezzi] = attrezzo;						//aggiungo l'attrezzo raccolto nell'ultima posizione dell'array
-		this.numeroAttrezzi++;												//aumento il numero di attrezzi contenuto in borsa
-		System.out.println("Attrezzo preso!");
+		this.numeroAttrezzi++;					
 		
 		return true;
 	}
