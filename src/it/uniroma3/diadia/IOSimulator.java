@@ -39,10 +39,6 @@ public class IOSimulator implements IO {
 		this.indiceMessaggiProdotti++;
 	}
 
-	//	public String[] getRigheMostrate() {
-	//		return righeMostrate;
-	//	}
-
 	public String nextMessaggio() {
 		String next = this.messaggiProdotti[this.indiceMessaggiMostrati];
 		this.indiceMessaggiMostrati++;
