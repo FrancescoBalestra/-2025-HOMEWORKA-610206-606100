@@ -5,10 +5,10 @@ public class StanzaBloccata extends Stanza {
 	private String direzioneBloccata;
 	private String attrezzoSbloccante;
 	
-	public StanzaBloccata(String nome, String direzioneBloccata, String attrezzoBloccante) {
+	public StanzaBloccata(String nome, String direzioneBloccata, String attrezzoSbloccante) {
 		super(nome);
 		this.direzioneBloccata = direzioneBloccata;
-		this.attrezzoSbloccante = "passpartou";
+		this.attrezzoSbloccante = attrezzoSbloccante;
 	}
 	
 	@Override
