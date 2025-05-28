@@ -1,46 +1,50 @@
 package it.uniroma3.diadia;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IOSimulator implements IO {
 
-	private String[] righeLette;
+	private List<String> righeLette;
 	private int indiceRigheLette;
 
-	public String[] getMessaggiProdotti() {
+	public List<String> getMessaggiProdotti() {
 		return messaggiProdotti;
 	}
 
-	public void setMessaggiProdotti(String[] messaggiProdotti) {
+	public void setMessaggiProdotti(List<String> messaggiProdotti) {
 		this.messaggiProdotti = messaggiProdotti;
 	}
 
-	private String[] messaggiProdotti;
+	//forse si potrebbe inserire una mappa al posto della lista per ricordare ogni riga letta quale messaggi abbia prodotto
+	private List<String> messaggiProdotti;
 	private int indiceMessaggiProdotti;
 	private int indiceMessaggiMostrati;
 
-	public IOSimulator(String[] righeDaLeggere) {
+	public IOSimulator(List<String> righeDaLeggere) {
 		this.righeLette = righeDaLeggere;
 		this.indiceRigheLette = 0;
 		this.indiceMessaggiMostrati = 0;
-		this.messaggiProdotti = new String[42*23];
+		this.messaggiProdotti = new ArrayList<String>();
 	}
 
 	@Override
 	public String leggiRiga() {
 		String riga = null;
 
-		riga = this.righeLette[indiceRigheLette];
+		riga = this.righeLette.get(indiceRigheLette);
 		this.indiceRigheLette++;
 		return riga;
 	}
 
 	@Override
 	public void mostraMessaggio(String msg) {
-		this.messaggiProdotti[indiceMessaggiProdotti] = msg;
+		this.messaggiProdotti.add(this.indiceMessaggiProdotti, msg);
 		this.indiceMessaggiProdotti++;
 	}
 
 	public String nextMessaggio() {
-		String next = this.messaggiProdotti[this.indiceMessaggiMostrati];
+		String next = this.messaggiProdotti.get(indiceMessaggiMostrati);
 		this.indiceMessaggiMostrati++;
 		return next;
 	}

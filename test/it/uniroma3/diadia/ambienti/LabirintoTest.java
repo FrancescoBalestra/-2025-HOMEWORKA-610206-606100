@@ -1,11 +1,13 @@
-package it.uniroma3.diadia.ambienti;
 
+package it.uniroma3.diadia.ambienti;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class LabirintoTest {
+public class LabirintoTest {
+	
 
 	private Labirinto labirinto;
 	private Stanza stanzaCorrente;
@@ -18,14 +20,14 @@ class LabirintoTest {
 		stanzaVincente = labirinto.getStanzaVincente();
 	}
 	
-	@Test
-	public void testGetStanzaVincente() {
-		assertEquals(stanzaVincente, labirinto.getStanzaVincente());
-	}
-	
+
 	@Test
 	public void testGetStanzaCorrente() {
 		assertEquals(stanzaCorrente, labirinto.getStanzaCorrente());
 	}
 
+	@Test
+	public void testGetStanzaVincente() {
+		assertEquals(stanzaVincente, labirinto.getStanzaVincente());
+	}
 }

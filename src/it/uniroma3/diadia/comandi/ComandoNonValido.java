@@ -6,7 +6,7 @@ import it.uniroma3.diadia.Partita;
 public class ComandoNonValido implements Comando {
 
 	private IO io;
-	private final static String NOME = "non valido";
+	private final static String NOME = "Comando sconosciuto";
 	
 	@Override
 	public void esegui(Partita partita) {

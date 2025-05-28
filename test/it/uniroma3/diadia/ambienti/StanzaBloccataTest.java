@@ -2,53 +2,51 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.comand.*;
-import it.uniroma3.diadia.*;
-import it.uniroma3.diadia.attrezzi.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.ComandoVai;
 
 class StanzaBloccataTest {
-		
-	private StanzaBloccata stanzaB;
-	private Stanza stanzaA;
-	private ComandoVai vai;
+	
 	private Partita partita;
+	private ComandoVai comandoVai;
 	private Attrezzo passpartou;
 	
 	@BeforeEach
 	public void setUp() {
-		
+		this.comandoVai = new ComandoVai();
 		this.partita = new Partita();
-		this.vai = new ComandoVai();
+		
 		this.passpartou = new Attrezzo("passpartou", 2);
-		
-		this.stanzaB = new StanzaBloccata("atrio","nord","passpartou");
-		this.stanzaA = new Stanza("uscita");
-		
-		this.stanzaB.impostaStanzaAdiacente("nord", stanzaA);
-		this.partita.setStanzaCorrente(stanzaB);
-		this.vai.setIo(new IOConsole()); 
-			
-		
+
+		Stanza atrio = new StanzaBloccata("atrio", "nord", "chiave");
+		Stanza uscita = new Stanza("uscita");
+		atrio.impostaStanzaAdiacente("nord", uscita);
+		uscita.impostaStanzaAdiacente("sud", atrio);
+		uscita.addAttrezzo(passpartou);
+		this.partita.setStanzaCorrente(atrio);
+		this.comandoVai.setIo(new IOConsole());
 	}
-	
-	
+
 	@Test
 	void testNoPass() {
-		this.vai.setParametro("nord");
-		this.vai.esegui(partita);
+		this.comandoVai.setParametro("nord");
+		this.comandoVai.esegui(partita);
 		assertEquals("atrio", this.partita.getStanzaCorrente().getNome());
 	}
 	
-	
 	@Test
-	void testPass() {
-		this.stanzaB.addAttrezzo(passpartou);
-		this.vai.setParametro("nord");
-		this.vai.esegui(partita);
+	void testSiPass() {
+		this.partita.getStanzaCorrente().addAttrezzo(passpartou); 
+		this.comandoVai.setParametro("nord");
+		this.comandoVai.esegui(partita);
 		assertEquals("uscita", this.partita.getStanzaCorrente().getNome());
 	}
+
 }

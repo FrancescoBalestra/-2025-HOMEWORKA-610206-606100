@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.comandi;
-import it.uniroma3.diadia.IO;
+
 import java.util.Scanner;
+
+import it.uniroma3.diadia.IO;
 
 public class FabbricaDiComandiFisarmonica {
 
