@@ -2,6 +2,7 @@ package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.*;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ public class StanzaTest {
 	private Stanza atrio;
 	private Stanza n10;
 	private Attrezzo lanterna;
+
 	
 	@BeforeEach
 	public void Setup() {
@@ -29,7 +31,7 @@ public class StanzaTest {
 	@Test 
 	public void testAddAttrezzoNull() {
 		n10.addAttrezzo(null);
-		assertTrue(n10.addAttrezzo(null));
+		assertFalse(n10.addAttrezzo(null));
 	}
 	
 	@Test 

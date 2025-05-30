@@ -1,71 +1,59 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.comandi.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import it.uniroma3.diadia.comand.*;
 import it.uniroma3.diadia.*;
 import it.uniroma3.diadia.attrezzi.*;
 
 class StanzaMagicaTest {
 	
-	private StanzaMagica SM;
-	private Stanza SI;
-	
+	private Labirinto lab;
 	private Partita partita;
-	private Attrezzo a1;
-	private Attrezzo a2;
-	private Attrezzo a3;
-	private Attrezzo a4;
-
+	private ComandoVai vai;
+	private StanzaMagica sm;
+	
+	
 	@BeforeEach
 	public void setUp() {
-		this.partita = new Partita();
-		this.SM  = new StanzaMagica("Stanza Magica");
-		this.partita.setStanzaCorrente(SM);
-		this.a1 = new Attrezzo("a1", 1);
-		this.a2 = new Attrezzo("a2", 1);
-		this.a3 = new Attrezzo("a3", 1);
-		this.a4 = new Attrezzo("a4", 1);
+		lab = new LabirintoBuilder()
+				.addStanzaIniziale("atrio")
+				.addStanzaMagica("n10")
+				.addAttrezzo("pala", 1)
+				.addAttrezzo("pollo", 3)
+				.addAttrezzo("koala", 3)
+				.addStanzaVincente("uscita")
+				.addAdiacenza("atrio", "n10", "ovest")
+				.addAdiacenza("atrio", "uscita", "nord")
+				.getLabirinto();
+		
+		partita = new Partita(lab);
+		vai = new ComandoVai();
+
+		
+		this.vai.setIo(new IOConsole());
+		
+	}
+	
+	
+	@Test
+	void testNomeMagico() {
+		vai.setParametro("ovest");
+		vai.esegui(partita);
+		assertTrue(partita.getStanzaCorrente().hasAttrezzo("alaok"));
 		
 	}
 	
 	@Test
-	void testNoAttivazione() {
-		assertEquals(SM.getDescrizione(), this.partita.getStanzaCorrente().getDescrizione());
+	void testPesoMagico() {
+		vai.setParametro("ovest");
+		vai.esegui(partita);
+		assertEquals(6, partita.getStanzaCorrente().getAttrezzo("alaok").getPeso());
 	}
 	
-	@Test
-	void testAttivazioneControlloNoNull() {
-		this.SM.addAttrezzo(a1);
-		this.SM.addAttrezzo(a2);
-		this.SM.addAttrezzo(a3);
-		this.SM.addAttrezzo(a4);
-	    Attrezzo modificato = this.SM.getAttrezzo("4a"); 
-	    assertNotNull(modificato);
-	}
 	
-	@Test
-	void testAttivazioneControlloStringa() {
-		this.SM.addAttrezzo(a1);
-		this.SM.addAttrezzo(a2);
-		this.SM.addAttrezzo(a3);
-		this.SM.addAttrezzo(a4);
-		
-	    Attrezzo modificato = this.SM.getAttrezzo("4a"); 
-	    assertEquals("4a", modificato.getNome()); 
-	}
 	
-	@Test
-	void testAttivazioneControlloPeso() {
-		this.SM.addAttrezzo(a1);
-		this.SM.addAttrezzo(a2);
-		this.SM.addAttrezzo(a3);
-		this.SM.addAttrezzo(a4);
-		
-	    Attrezzo modificato = this.SM.getAttrezzo("4a"); 
-	    assertEquals(2, modificato.getPeso()); 
-	}
 }

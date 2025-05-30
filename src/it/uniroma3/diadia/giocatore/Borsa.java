@@ -110,6 +110,7 @@ public class Borsa {
 //		return l;
 //	}
 	
+	
 	List<Attrezzo> getContenutoOrdinatoPerPeso(){
 		List<Attrezzo> l = new ArrayList<>();
 		l.addAll(this.nome2attrezzi.values());

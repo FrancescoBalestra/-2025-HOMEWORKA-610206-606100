@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.comand;
-import it.uniroma3.diadia.IO;
+
 import java.util.Scanner;
+
+import it.uniroma3.diadia.IO;
 
 public class FabbricaDiComandiFisarmonica {
 
@@ -15,8 +17,7 @@ public class FabbricaDiComandiFisarmonica {
 		String parametro = null;
 		Comando comando = null;
 		if (scannerDiParole.hasNext())
-			// prima parola: nome del comando
-			nomeComando = scannerDiParole.next(); 
+			nomeComando = scannerDiParole.next(); // prima parola: nome del comando
 		if (scannerDiParole.hasNext())
 			parametro = scannerDiParole.next();
 		// seconda parola: eventuale parametro

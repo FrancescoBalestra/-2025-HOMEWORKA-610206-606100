@@ -2,8 +2,8 @@ package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comand.Comando;
+import it.uniroma3.diadia.comand.FabbricaDiComandiFisarmonica;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -16,6 +16,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
  *          
  * @version base
  */
+
 
 public class DiaDia {
 	static final private String MESSAGGIO_BENVENUTO = ""+

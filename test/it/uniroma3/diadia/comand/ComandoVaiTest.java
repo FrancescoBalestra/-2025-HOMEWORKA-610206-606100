@@ -2,34 +2,33 @@ package it.uniroma3.diadia.comand;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.ambienti.*;
 
 public class ComandoVaiTest {
 	
 	//preparo un ambiente per i test che voglio eseguire:
     private ComandoVai comandoVai;
     private Partita partita;
-    private Stanza stanzaIniziale;
-    private Stanza stanzaAdiacente;
+    private Labirinto lab;
 
     @BeforeEach
     public void setUp() {
     	
-        this.comandoVai = new ComandoVai();
-        this.partita = new Partita();
-        
-        //il gioco parte nell'atrio
-        this.stanzaIniziale = new Stanza("Atrio");
-        this.stanzaAdiacente = new Stanza("Segreteria");
-        
-        //decidio che a nord dell'atrio si trova la segreteria
-        this.stanzaIniziale.impostaStanzaAdiacente("nord", stanzaAdiacente);
-        this.partita.setStanzaCorrente(this.stanzaIniziale);
+    	lab = new LabirintoBuilder()
+    			.addStanzaIniziale("atrio")
+    			.addStanzaVincente("biblioteca")
+    			.addAdiacenza("atrio", "biblioteca", "nord")
+    			.getLabirinto();
+    	
+        comandoVai = new ComandoVai();
+        partita = new Partita(lab);
+       
         this.comandoVai.setIo(new IOConsole()); 
     }
 
@@ -39,9 +38,9 @@ public class ComandoVaiTest {
      * */
     @Test
     public void testVaiDirezioneNull() {
-        this.comandoVai.setParametro(null);
-        this.comandoVai.esegui(this.partita);
-        assertEquals("Atrio", this.partita.getStanzaCorrente().getNome());
+        comandoVai.setParametro(null);
+        comandoVai.esegui(partita);
+        assertEquals("atrio", partita.getStanzaCorrente().getNome());
     }
     
     /* Con questo test voglio assicurarmi che in caso di inserimento di una
@@ -49,9 +48,9 @@ public class ComandoVaiTest {
      * */
     @Test
     public void testVaiDirezioneInesistente() {
-        this.comandoVai.setParametro("sud"); 
-        this.comandoVai.esegui(this.partita);
-        assertEquals("Atrio", this.partita.getStanzaCorrente().getNome());
+        comandoVai.setParametro("su"); 
+        comandoVai.esegui(partita);
+        assertEquals("atrio", partita.getStanzaCorrente().getNome());
     }
     
     /* Con questo test controllo, nel caso in cui viene inserito un comando valido,
@@ -59,9 +58,9 @@ public class ComandoVaiTest {
      * */
     @Test
     public void testVaiDirezioneValida() {
-        this.comandoVai.setParametro("nord");
-        this.comandoVai.esegui(this.partita);
-        assertEquals("Segreteria", this.partita.getStanzaCorrente().getNome());
+        comandoVai.setParametro("nord");
+        comandoVai.esegui(partita);
+        assertEquals("biblioteca", partita.getStanzaCorrente().getNome());
     }
 
     
@@ -71,9 +70,9 @@ public class ComandoVaiTest {
      * */
     @Test
     public void testRiduzioneCFU() {
-        int cfuIniziali = this.partita.getGiocatore().getCfu();
-        this.comandoVai.setParametro("nord");
-        this.comandoVai.esegui(this.partita);
-        assertEquals(cfuIniziali - 1, this.partita.getGiocatore().getCfu());
+        int cfuIniziali = partita.getGiocatore().getCfu();
+        comandoVai.setParametro("nord");
+        comandoVai.esegui(partita);
+        assertEquals(cfuIniziali - 1, partita.getGiocatore().getCfu());
     }
 }

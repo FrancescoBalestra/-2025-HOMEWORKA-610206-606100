@@ -49,7 +49,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return labirinto.getStanzaCorrente()== labirinto.getStanzaVincente();
+		return labirinto.getStanzaCorrente() == labirinto.getStanzaVincente();
 	}
 
 	/**

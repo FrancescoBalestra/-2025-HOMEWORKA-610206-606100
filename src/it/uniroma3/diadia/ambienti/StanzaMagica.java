@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.function.BooleanSupplier;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaMagica extends Stanza {
@@ -41,4 +43,11 @@ public class StanzaMagica extends Stanza {
 		return super.addAttrezzo(attrezzo);
 	}
 
+	//Metodo creato per il test di LabirintoBuilder : testLabirintoConStanzaMagica
+/*	public Boolean isMagica() {
+		
+		if() return true;
+		return false;
+	}
+*/
 }

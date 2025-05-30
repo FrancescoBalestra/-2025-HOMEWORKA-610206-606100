@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.Collection;
 import java.util.HashMap;
+
 import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -27,9 +29,12 @@ public class LabirintoBuilder {
 	public LabirintoBuilder addStanzaIniziale(String stanzaIniziale) {
 		Stanza i = new Stanza(stanzaIniziale);
 		this.labirinto.setStanzaCorrente(i);
+		this.labirinto.setStanzaIniziale(i);
 		this.UltimaStanzaAggiuntaEAggiorna(i);
 		return this;
 	}
+	
+	
 
 	public LabirintoBuilder addStanzaVincente(String stanzaVincente) {
 		Stanza s = new Stanza(stanzaVincente);
@@ -59,10 +64,19 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
+	
 	public LabirintoBuilder addStanzaMagica(String nome) {
 		Stanza stanza = new StanzaMagica(nome);
 		this.UltimaStanzaAggiuntaEAggiorna(stanza);
 		return this;
+	}
+	
+	//Overload del metodo in caso si voglia scegliere la soglia di magia diversa dallo standard
+	public LabirintoBuilder addStanzaMagica(String nome, int soglia) {
+		Stanza stanza = new StanzaMagica(nome, soglia);
+		this.UltimaStanzaAggiuntaEAggiorna(stanza);
+		return this;
+		
 	}
 	
 	public LabirintoBuilder addStanzaBuia(String nome, String attrezzoPerVedere) {
@@ -85,7 +99,13 @@ public class LabirintoBuilder {
 	public LabirintoBuilder addStanzaBloccataIniziale(String nome, String direzione, String attrezzo) {
 	    Stanza stanza = new StanzaBloccata(nome, direzione, attrezzo);
 	    this.labirinto.setStanzaCorrente(stanza);
+		this.labirinto.setStanzaIniziale(stanza);
 	    this.UltimaStanzaAggiuntaEAggiorna(stanza);
 	    return this;
+	}
+
+	public Collection<Attrezzo> getListaStanze() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

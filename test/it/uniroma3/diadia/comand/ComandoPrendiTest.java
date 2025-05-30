@@ -2,6 +2,7 @@ package it.uniroma3.diadia.comand;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,32 +10,32 @@ import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.giocatore.Borsa;
 import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.attrezzi.*;
 
 class ComandoPrendiTest {
+	
 	
 	//preparo l'ambiente per eseguire i test
 	private ComandoPrendi prendi;
 	private Partita partita;
 	private Borsa borsa;
-	private Attrezzo armadio;
-	private Attrezzo lanterna;
-	private Stanza stanzaCorrente;
+	private Labirinto lab;
+	
 	
 	@BeforeEach
 	public void setUp() {
-		this.prendi = new ComandoPrendi();
-		this.partita = new Partita();
-		this.borsa = new Borsa();
-		this.armadio = new Attrezzo("Armadio", 20);
-		this.lanterna = new Attrezzo("Lanterna", 4);
-		this.stanzaCorrente = new Stanza("Atrio");
+	
+		lab = new LabirintoBuilder()
+    			.addStanzaIniziale("atrio")
+    			.addAttrezzo("armadio", 20)
+    			.addAttrezzo("lanterna", 3)
+    			.addStanzaVincente("biblioteca")
+    			.addAdiacenza("atrio", "biblioteca", "nord")
+    			.getLabirinto();
 		
-		//decido che nell'atrio ci sono un armadio e un alampada
-        this.partita.setStanzaCorrente(this.stanzaCorrente);
-        this.stanzaCorrente.addAttrezzo(armadio);
-        this.stanzaCorrente.addAttrezzo(lanterna);
-        
+		prendi = new ComandoPrendi();
+		partita = new Partita(lab);
+		borsa = new Borsa();
+		
 		this.partita.getGiocatore().setBorsa(this.borsa);
 		this.prendi.setIo(new IOConsole());
 	}
@@ -55,10 +56,10 @@ class ComandoPrendiTest {
 	 * */
 	@Test
 	public void testPrendiOggettoTroppoPesante() {
-		this.prendi.setParametro("Armadio");
+		this.prendi.setParametro("armadio");
 		this.prendi.esegui(partita);
 		
-		assertFalse(this.borsa.hasAttrezzo("Armadio"));
+		assertFalse(this.borsa.hasAttrezzo("armadio"));
 	}
 	
 	/* testo che prendi funzioni in maniera adeguata in caso venga eseguita
@@ -66,10 +67,10 @@ class ComandoPrendiTest {
 	 * */
 	@Test
 	public void testPrendiOggettoValido() {
-		this.prendi.setParametro("Lanterna");
+		this.prendi.setParametro("lanterna");
 		this.prendi.esegui(partita);
 
-		assertTrue(this.borsa.hasAttrezzo("Lanterna"));
+		assertTrue(this.borsa.hasAttrezzo("lanterna"));
 	}
 
 }
