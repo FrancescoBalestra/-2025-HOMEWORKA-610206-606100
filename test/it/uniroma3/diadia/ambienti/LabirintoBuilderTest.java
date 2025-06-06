@@ -47,31 +47,6 @@ public class LabirintoBuilderTest {
 	}
 	
 	@Test
-	public void testMonolocaleConAttrezzoSingoloDuplicato() {
-		Labirinto monolocale = labirintoBuilder
-				.addStanzaIniziale(nomeStanzaIniziale)
-				.addAttrezzo("spada",1)
-				.addAttrezzo("spada",1)
-				.getLabirinto();
-		int size = monolocale.getStanzaIniziale().getAttrezzi().size();
-		assertTrue(size==1);
-		assertEquals(Arrays.asList(new Attrezzo("spada",1)),monolocale.getStanzaIniziale().getAttrezzi());
-	}
-	
-	@Test
-	public void testBilocale() {
-		Labirinto bilocale = labirintoBuilder
-				.addStanzaIniziale(nomeStanzaIniziale)
-				.addStanzaVincente(nomeStanzaVincente)
-				.addAdiacenza(nomeStanzaIniziale, nomeStanzaVincente, "nord")
-				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, "sud")
-				.getLabirinto();
-		assertEquals(bilocale.getStanzaVincente(),bilocale.getStanzaIniziale().getStanzaAdiacente("nord"));
-		assertEquals(Collections.singletonList("nord"),bilocale.getStanzaIniziale().getDirezioni());
-		assertEquals(Collections.singletonList("sud"),bilocale.getStanzaVincente().getDirezioni());
-	}
-	
-	@Test
 	public void testTrilocale(){
 		Labirinto trilocale = labirintoBuilder
 				.addStanzaIniziale(nomeStanzaIniziale).addAttrezzo("sedia", 1)

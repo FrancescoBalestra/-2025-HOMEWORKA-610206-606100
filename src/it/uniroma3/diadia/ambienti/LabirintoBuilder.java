@@ -51,9 +51,12 @@ public class LabirintoBuilder {
 
 	public LabirintoBuilder addAttrezzo(String attrezzo, int peso) {
 		Attrezzo a = new Attrezzo(attrezzo, peso);
-		if(this.ultimaStanzaAggiunta==null)
+		if(this.ultimaStanzaAggiunta==null) 
 			return this;
-		this.ultimaStanzaAggiunta.addAttrezzo(a);
+		
+		if(!this.ultimaStanzaAggiunta.hasAttrezzo(attrezzo)) {
+			this.ultimaStanzaAggiunta.addAttrezzo(a);
+		}
 		return this;
 	}
 
