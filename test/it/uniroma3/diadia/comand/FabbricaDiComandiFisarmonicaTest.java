@@ -23,7 +23,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	 * inserito un comando sconosciuto al gioco
 	 * */
 	@Test
-	void testComandoNonValido() {
+	void testComandoNonValido() throws Exception {
 		Comando comando = fabbrica.costruisciComando("vola");
 		assertEquals("Comando sconosciuto", comando.getNome());
 	}
@@ -33,7 +33,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	 * scrive di voler posare un oggetto
 	 * */
 	@Test
-	void testComandoPosa() {
+	void testComandoPosa() throws Exception {
 		Comando comando = fabbrica.costruisciComando("posa scarpa");
 		assertTrue(comando instanceof ComandoPosa);
 	}
@@ -43,7 +43,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	 * invocata
 	 * */
 	@Test
-	void testControlloParametro() {
+	void testControlloParametro() throws Exception {
 		Comando comando = fabbrica.costruisciComando("vai nord");
 		assertEquals("nord", comando.getParametro());
 	}

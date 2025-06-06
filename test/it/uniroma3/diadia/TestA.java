@@ -74,28 +74,28 @@ class TestA {
     }
 
     @Test
-    void testSpostamento() {
+    void testSpostamento() throws Exception {
         gioca.gioca();
         List<String> messaggi = ioSim.getMessaggiProdotti();
         assertTrue(contieneMessaggio(messaggi, "Aula N10"));
     }
 
     @Test
-    void testPrendi() {
+    void testPrendi() throws Exception {
         gioca.gioca();
         List<String> messaggi = ioSim.getMessaggiProdotti();
         assertTrue(contieneMessaggio(messaggi, "Hai ottenuto lanterna!"));
     }
 
     @Test
-    void testPosa() {
+    void testPosa() throws Exception {
         gioca.gioca();
         List<String> messaggi = ioSim.getMessaggiProdotti();
         assertTrue(contieneMessaggio(messaggi, "Hai posato lanterna!"));
     }
 
     @Test
-    void testVinci() {
+    void testVinci() throws Exception {
         gioca.gioca();
         List<String> messaggi = ioSim.getMessaggiProdotti();
         assertTrue(contieneMessaggio(messaggi, "Hai vinto!"));

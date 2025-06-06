@@ -1,6 +1,7 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
+
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comand.Comando;
 import it.uniroma3.diadia.comand.FabbricaDiComandiFisarmonica;
@@ -37,7 +38,7 @@ public class DiaDia {
 		this.partita = new Partita(labirinto);
 	}
 
-	public void gioca() {
+	public void gioca() throws Exception {
 		String istruzione; 
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
@@ -51,8 +52,9 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
+	 * @throws Exception 
 	 */
-	private boolean processaIstruzione(String istruzione) {
+	private boolean processaIstruzione(String istruzione) throws Exception {
 		Comando comandoDaEseguire;
 		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.io);
 		comandoDaEseguire = factory.costruisciComando(istruzione);
@@ -64,7 +66,7 @@ public class DiaDia {
 		return this.partita.isFinita();
 	}
 			
-	public static void main(String[] argc) {
+	public static void main(String[] argc) throws Exception {
 		IO console = new IOConsole();
 		Labirinto labirinto = new LabirintoBuilder()
 							.addStanza("Aula N10")
