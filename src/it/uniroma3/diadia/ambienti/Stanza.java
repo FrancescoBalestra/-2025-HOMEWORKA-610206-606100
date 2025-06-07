@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
+import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-
+import it.uniroma3.diadia.personaggi.*;
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
  * Una stanza e' un luogo fisico nel gioco.
@@ -30,6 +32,8 @@ public class Stanza {
 
 	private Map<String, Stanza> direzioni2stanze;
 	private int numeroStanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
+
 	
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -44,7 +48,7 @@ public class Stanza {
 	}
 
 	public List<Stanza> getStanzeAdiacenti() {
-		return (List<Stanza>) direzioni2stanze.values();
+	    return new ArrayList<>(direzioni2stanze.values());
 	}
 
 	public void setStanzeAdiacenti(Map<String, Stanza> stanzeAdiacenti) {
@@ -143,15 +147,39 @@ public class Stanza {
 	 * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
 	 * @return la rappresentazione stringa
 	 */
+	//@Override
 	public String toString() {
-		StringBuilder risultato = new StringBuilder();
-		risultato.append(this.nome);
-		risultato.append("\nUscite: ");
-		risultato.append(this.getDirezioni().toString());
-		risultato.append("\nAttrezzi nella stanza: ");
-		risultato.append(this.getAttrezzi().toString());
-		return risultato.toString();
+	    StringBuilder risultato = new StringBuilder();
+
+	    risultato.append("Stanza: ").append(this.nome);
+
+	    risultato.append("\nUscite: ");
+	    if (this.direzioni2stanze.isEmpty()) {
+	        risultato.append("nessuna");
+	    } else {
+	        for (String direzione : this.getDirezioni()) {
+	            risultato.append(direzione).append(" ");
+	        }
+	    }
+
+	    risultato.append("\nAttrezzi nella stanza: ");
+	    if (this.nome2attrezzi.isEmpty()) {
+	        risultato.append("nessuno");
+	    } else {
+	        for (Attrezzo attrezzo : this.getAttrezzi()) {
+	            risultato.append(attrezzo.toString()).append(" ");
+	        }
+	    }
+
+	    if (this.personaggio != null) {
+	        risultato.append("\nPersonaggio presente: ");
+	        risultato.append(this.personaggio.getNome()).append(" - ");
+	        risultato.append(this.personaggio.getPresentazione());
+	    }
+
+	    return risultato.toString();
 	}
+
 
 	/**
 	 * Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
@@ -213,7 +241,19 @@ public class Stanza {
 		Stanza that = (Stanza) obj;
 		return this.getNome().equals(that.getNome());
 	}
+
+	public int getNumeroAttrezzi() {
+		// TODO Auto-generated method stub
+		return numeroAttrezzi;
+	}
 	
-	
+	public void setPersonaggio(AbstractPersonaggio personaggio) {
+	    this.personaggio = personaggio;
+	}
+
+	public AbstractPersonaggio getPersonaggio() {
+	    return this.personaggio;
+	}
+
 
 }

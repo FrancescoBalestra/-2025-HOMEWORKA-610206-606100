@@ -1,11 +1,10 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
-
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.comand.Comando;
-import it.uniroma3.diadia.comand.FabbricaDiComandiFisarmonica;
-
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.attrezzi.*;
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
  * Per giocare crea un'istanza di questa classe e invoca il letodo gioca
@@ -38,7 +37,7 @@ public class DiaDia {
 		this.partita = new Partita(labirinto);
 	}
 
-	public void gioca() throws Exception {
+	public void gioca() throws Exception{
 		String istruzione; 
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
@@ -52,7 +51,6 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
-	 * @throws Exception 
 	 */
 	private boolean processaIstruzione(String istruzione) throws Exception {
 		Comando comandoDaEseguire;
@@ -66,34 +64,68 @@ public class DiaDia {
 		return this.partita.isFinita();
 	}
 			
-	public static void main(String[] argc) throws Exception {
-		IO console = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder()
-							.addStanza("Aula N10")
-							.addAttrezzo("lanterna", 2)
-							.addAttrezzo("ratto", 1)
-							.addStanzaMagica("Aula N11")
-							.addAttrezzo("osso", 1)
-							.addAttrezzo("pollo", 1)
-							.addAttrezzo("pala", 1)
-							.addStanzaBloccataIniziale("Atrio", "nord", "ssap")
-							.addStanzaBuia("Laboratorio Campus", "lanterna")
-							.addAttrezzo("pass", 1)
-							.addStanzaVincente("Biblioteca")
-							.addAdiacenza("Atrio", "Biblioteca", "nord")
-							.addAdiacenza("Atrio", "Aula N10", "sud")
-							.addAdiacenza("Atrio", "Aula N11", "est")
-							.addAdiacenza("Atrio", "Laboratorio Campus", "ovest")
-							.addAdiacenza("Aula N10", "Atrio", "nord")
-							.addAdiacenza("Aula N10", "Aula N11", "est")
-							.addAdiacenza("Aula N10", "Laboratorio Campus", "ovest")
-							.addAdiacenza("Aula N11", "Laboratorio Campus", "est")
-							.addAdiacenza("Aula N11", "Atrio", "ovest")
-							.addAdiacenza("Laboratorio Campus", "Atrio", "est")
-							.addAdiacenza("Laboratorio Campus", "Aula N11", "ovest")
-							.addAdiacenza("Biblioteca", "Atrio", "sud")
-					        .getLabirinto();
-		DiaDia gioco = new DiaDia(console, labirinto);
-		gioco.gioca();
+	public static void main(String[] argc) throws Exception{
+	    IO console = new IOConsole();
+
+	    Labirinto labirinto = new LabirintoBuilder()
+	        .addStanzaBloccataIniziale("Atrio", "pass", "nord")
+	        
+	        .addStanza("Stanza del cane")
+	        .addCane("Iaiest", "Grrrr Bau Bau Grrrr!!")
+	        .addAttrezzo("osso", 1)
+	        .addAttrezzo("pappa", 1)
+	        
+	        .addStanza("Stanza del mago")
+	        .addMago("Gino il Mago", " Sono il più forte tra i maghi", new Attrezzo("scettro", 1))
+
+	        .addStanza("Stanza della strega")
+	        .addStrega("Strega permalosa", " Sono la strega più permalosa di roma3")
+	        
+	        .addStanza("Aula N10")
+	        .addAttrezzo("lanterna", 2)
+	        .addAttrezzo("ratto", 1)
+
+	        .addStanzaMagica("Aula N11")
+	        .addAttrezzo("osso", 1)
+	        .addAttrezzo("pollo", 1)
+	        .addAttrezzo("pala", 1)
+
+	        .addStanzaBuia("Laboratorio Campus", "lanterna")
+	        .addAttrezzo("pass", 1)
+
+	        .addStanzaVincente("Biblioteca")
+
+	        // Adiacenze
+	        .addAdiacenza("Atrio", "Biblioteca", "nord")
+	        .addAdiacenza("Atrio", "Aula N10", "sud")
+	        .addAdiacenza("Atrio", "Aula N11", "est")
+	        .addAdiacenza("Atrio", "Laboratorio Campus", "ovest")
+
+	        .addAdiacenza("Aula N10", "Atrio", "nord")
+	        .addAdiacenza("Aula N10", "Aula N11", "est")
+	        .addAdiacenza("Aula N10", "Laboratorio Campus", "ovest")
+	        .addAdiacenza("Aula N10", "Stanza del cane", "sud")
+
+	        .addAdiacenza("Aula N11", "Laboratorio Campus", "est")
+	        .addAdiacenza("Aula N11", "Atrio", "ovest")
+
+	        .addAdiacenza("Laboratorio Campus", "Atrio", "est")
+	        .addAdiacenza("Laboratorio Campus", "Aula N11", "ovest")
+
+	        .addAdiacenza("Biblioteca", "Atrio", "sud")
+	        
+	        .addAdiacenza("Stanza del cane", "Aula N10", "nord")
+	        .addAdiacenza("Stanza del cane", "Stanza del mago", "sud")
+	        
+	        .addAdiacenza("Stanza del mago", "Stanza del cane", "nord")
+	        .addAdiacenza("Stanza del mago", "Stanza della strega", "sud")
+	        
+	        .addAdiacenza("Stanza della strega", "Stanza del mago", "nord")
+	        
+	        .getLabirinto();
+
+	    DiaDia gioco = new DiaDia(console, labirinto);
+	    gioco.gioca();
 	}
+
 }

@@ -6,13 +6,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.ambienti.*;
+import it.uniroma3.diadia.comandi.*;
 import it.uniroma3.diadia.*;
 import it.uniroma3.diadia.attrezzi.*;
-import it.uniroma3.diadia.comand.*;
 
 class StanzaBuiaTest {
 		
 	private ComandoVai vai;
+	private ComandoPosa posa;
+	private ComandoPrendi prendi;
 	private Partita partita;
 	private Attrezzo lanterna;
 	private Labirinto lab;
@@ -23,19 +25,22 @@ class StanzaBuiaTest {
 		
 		lab = new LabirintoBuilder()
 				.addStanzaIniziale("atrio")
+				.addAttrezzo("lanterna", 1)
 				.addStanzaBuia("laboratorio", "lanterna")
 				.addStanzaVincente("Uscita")
-				.addAdiacenza("laboratorio", "Uscita", "nord")
 				.addAdiacenza("atrio", "laboratorio", "est")
 				.getLabirinto();
 		
 		partita = new Partita(lab);
 		vai = new ComandoVai();
-		lanterna = new Attrezzo("lanterna", 3);
+		posa = new ComandoPosa();
+		prendi = new ComandoPrendi();
+		lanterna = new Attrezzo("lanterna", 1);
 		sb = new StanzaBuia("laboratorio","lanterna");
 		
-		this.vai.setIo(new IOConsole()); 
-			
+		this.vai.setIo(new IOConsole());
+		this.prendi.setIo(new IOConsole());
+		this.posa.setIo(new IOConsole());
 	}
 	
 	@Test
@@ -48,8 +53,13 @@ class StanzaBuiaTest {
 	
 	@Test
 	void testPass() {
+		prendi.setParametro("lanterna");
+		prendi.esegui(partita);
 		vai.setParametro("est");
 		vai.esegui(partita);
+		posa.setParametro("lanterna");		
+		posa.esegui(partita);
+		sb.addAttrezzo(lanterna);
 		assertEquals(sb.getDescrizione(), this.partita.getStanzaCorrente().getDescrizione());
 	}
 	

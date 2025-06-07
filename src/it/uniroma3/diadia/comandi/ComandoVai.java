@@ -20,6 +20,7 @@ public class ComandoVai implements Comando {
 		Stanza prossimaStanza = null;
 		if (this.direzione == null) {
 			this.io.mostraMessaggio("Dove vuoi andare? Devi specificare una direzione");
+			return;
 		}
 
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);

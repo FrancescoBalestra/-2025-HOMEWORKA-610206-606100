@@ -20,7 +20,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	void testComandoNull() {
 		Comando comando = fabbrica.costruisciComando("");
-		assertEquals(comando.getNome(), "Comando sconosciuto");
+		assertEquals(comando.getNome(), "non valido");
 	}
 	
 	@Test

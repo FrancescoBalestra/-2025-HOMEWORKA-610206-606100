@@ -2,6 +2,7 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,20 +19,25 @@ class ComandoPosaTest {
     private Partita partita;
     private Borsa borsa;
     private Attrezzo lanterna;
-    private Stanza atrio;
+    private Labirinto lab;
+    
     
     @BeforeEach
     public void setUp() {
-        this.posa = new ComandoPosa();
-        this.partita = new Partita();
-        this.atrio = new Stanza("Atrio");
-        this.borsa = new Borsa();
-        this.lanterna = new Attrezzo("Lanterna",4);
+    	
+    	lab = new LabirintoBuilder()
+    			.addStanzaIniziale("atrio")
+    			.addStanzaVincente("biblioteca")
+    			.addAdiacenza("atrio", "biblioteca", "nord")
+    			.getLabirinto();
+    	
+        posa = new ComandoPosa();
+        partita = new Partita(lab);
+        borsa = new Borsa();
+        lanterna = new Attrezzo("Lanterna",4);
         
         // Aggiungi l'attrezzo alla borsa
         this.borsa.addAttrezzo(this.lanterna);
-
-        this.partita.setStanzaCorrente(this.atrio);
         this.partita.getGiocatore().setBorsa(this.borsa);
 
         this.posa.setIo(new IOConsole());
@@ -45,7 +51,7 @@ class ComandoPosaTest {
     void testPosaOggettoNull() {
         this.posa.setParametro(null);
         this.posa.esegui(this.partita);
-        assertEquals(10, this.atrio.getNumeroAttrezziPossibili());
+        assertEquals(10, partita.getStanzaCorrente().getNumeroAttrezziPossibili());
     }
     
     /* test per accettarsi che il comando posa non modifichi la stanza
@@ -55,7 +61,7 @@ class ComandoPosaTest {
     void testPosaOggettoNonValido() {
         this.posa.setParametro("Torcia");
         this.posa.esegui(partita);
-        assertEquals(10, this.atrio.getNumeroAttrezziPossibili());
+        assertEquals(10, partita.getStanzaCorrente().getNumeroAttrezziPossibili());
     }
     
     /* test per accettarsi che il comando posa svuoti la borsa
