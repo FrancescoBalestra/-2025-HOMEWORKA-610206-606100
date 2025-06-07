@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.*;
+import it.uniroma3.diadia.comand.ComandoVai;
 
 public class ComandoVaiTest {
 	

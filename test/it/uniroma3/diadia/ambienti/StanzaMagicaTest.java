@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-import it.uniroma3.diadia.comand.*;
 import it.uniroma3.diadia.*;
 import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.comand.*;
 
 class StanzaMagicaTest {
 	

@@ -11,6 +11,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.giocatore.Borsa;
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.comand.ComandoPosa;
 
 class ComandoPosaTest {
     
