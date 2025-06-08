@@ -8,40 +8,28 @@ import it.uniroma3.diadia.IO;
 
 
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
-
-	private IO io;
-	public FabbricaDiComandiFisarmonica(IO io) {
-		this.io = io;
-	}
-	
 	@Override
 	public Comando costruisciComando(String istruzione) {
+		if(istruzione==null) return new ComandoNonValido();
 		Scanner scannerDiParole = new Scanner(istruzione);
 		String nomeComando = null;
 		String parametro = null;
 		Comando comando = null;
-		
 		if (scannerDiParole.hasNext())
-			nomeComando = scannerDiParole.next(); // prima parola: nome del comando
+			nomeComando = scannerDiParole.next();//prima parola: nome del comando
 		if (scannerDiParole.hasNext())
-			parametro = scannerDiParole.next();
-		// seconda parola: eventuale parametro
-		
-		String nomeClasse = "it.uniroma3.diadia.comand.Comando";
-		nomeClasse += Character.toUpperCase(nomeComando.charAt(0));
-		nomeClasse += nomeComando.substring(1);
-		
+			parametro = scannerDiParole.next();//seconda parola: eventuale parametro
 		try {
-			comando = (Comando)Class.forName(nomeClasse).newInstance();
-			comando.setIo(this.io);
+			String nomeClasse = "it.uniroma3.diadia.comand.Comando";
+			nomeClasse +=Character.toUpperCase(nomeComando.charAt(0));
+			nomeClasse += nomeComando.substring(1);
+			comando = (Comando)Class.forName(nomeClasse.toString()).newInstance();
 			comando.setParametro(parametro);
 		} catch (Exception e) {
 			comando = new ComandoNonValido();
-			this.io.mostraMessaggio("Comando inesistente");
-		}
-
-		
+		} finally {scannerDiParole.close();}
 		return comando;
-		//scannerDiParole.close();
 	}
+
+
 }

@@ -2,6 +2,7 @@ package it.uniroma3.diadia.ambienti;
 
 import java.util.function.BooleanSupplier;
 
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaMagica extends Stanza {
@@ -50,4 +51,7 @@ public class StanzaMagica extends Stanza {
 		return false;
 	}
 */
+	public Boolean isMagica() {
+		return true;
+	}
 }

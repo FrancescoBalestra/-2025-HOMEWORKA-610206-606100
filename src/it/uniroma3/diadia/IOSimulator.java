@@ -1,6 +1,7 @@
 package it.uniroma3.diadia;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class IOSimulator implements IO {

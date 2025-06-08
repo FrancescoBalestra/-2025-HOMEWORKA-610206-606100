@@ -14,27 +14,27 @@ public class ComandoPrendi extends AbstractComando {
 	@Override
 	public void esegui(Partita partita) {
 		
-		Attrezzo a = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+		Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 		
 		// Primo caso: nessun parametro
 		if(nomeAttrezzo == null) {
-			this.getIo().mostraMessaggio("Specifica un attrezzo da prendere!");
+			super.getIo().mostraMessaggio("Specifica un attrezzo da prendere!");
 			return;
 		}
 		// Secondo caso: non esiste l'oggetto nella stanza
-		if(!(partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo))) {
-			this.getIo().mostraMessaggio("In " + partita.getLabirinto().getStanzaCorrente().getNome() + " non c'è " + nomeAttrezzo + "!");
+		if(!(partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo))) {
+			super.getIo().mostraMessaggio("In " + partita.getStanzaCorrente().getNome() + " non c'è " + nomeAttrezzo + "!");
 			return;
 		}
 		// Terzo caso: SUCCESSO!!
 		if(partita.getGiocatore().getBorsa().getPesoRimanente(a)) {
 			partita.getGiocatore().getBorsa().addAttrezzo(a);
-			partita.getLabirinto().getStanzaCorrente().removeAttrezzo(a);
-			this.getIo().mostraMessaggio("Hai ottenuto "+ nomeAttrezzo +"!");
+			partita.getStanzaCorrente().removeAttrezzo(a);
+			super.getIo().mostraMessaggio("Hai ottenuto "+ nomeAttrezzo +"!");
 		} 
 		// Quarto caso: la borsa è troppo piena
 		else {
-			this.getIo().mostraMessaggio("Attrezzo troppo pesante per entrare nella borsa!");
+			super.getIo().mostraMessaggio("Attrezzo troppo pesante per entrare nella borsa!");
 		}
 	}
 

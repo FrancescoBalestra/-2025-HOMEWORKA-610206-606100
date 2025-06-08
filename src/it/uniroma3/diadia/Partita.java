@@ -1,7 +1,10 @@
 package it.uniroma3.diadia;
+
+import java.io.IOException;
+
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
-
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 /**
@@ -14,42 +17,52 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
 
-
-
+	private Stanza stanzaCorrente;
 	private Labirinto labirinto;
-	private Giocatore giocatore;
 	private boolean finita;
-
-	public Partita(Labirinto labirinto){
-		this.labirinto = labirinto;
-		giocatore = new Giocatore();
-		//labirinto.creaStanze();
+	private Giocatore player;
+	
+	public Partita(Labirinto l){
 		this.finita = false;
+		this.labirinto = l;
+		this.player = new Giocatore();
+		this.setStanzaCorrente(labirinto.getStanzaIniziale());
+		}
+	
+	public Partita(Labirinto l, Giocatore g){
+		this.finita = false;
+		this.labirinto = l;
+		this.player = g;
+		this.setStanzaCorrente(labirinto.getStanzaIniziale());
+		}
+	
+	public Partita(String nomeFile) throws FormatoFileNonValidoException, IOException {
+		this(Labirinto.newBuilder(nomeFile).getLabirinto(), new Giocatore());
 	}
-
-	public Labirinto getLabirinto(){
-		return labirinto;
+	
+	public Partita() throws FormatoFileNonValidoException, IOException {
+		this("Labirinto1");
 	}
-
+	
+	
+	public Labirinto getLabirinto() {
+		return this.labirinto;
+	}
+	
 	public void setLabirinto(Labirinto labirinto) {
-		this.labirinto = labirinto;
+		this.labirinto=labirinto;
 	}
-
-
+	
 	public Giocatore getGiocatore() {
-		return giocatore;
+		return player;
 	}
-
-	public void setGiocatore(Giocatore giocatore) {
-		this.giocatore = giocatore;
-	}
-
+	
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return labirinto.getStanzaCorrente() == labirinto.getStanzaVincente();
+		return this.getStanzaCorrente() == this.labirinto.getStanzaVincente();
 	}
 
 	/**
@@ -68,17 +81,19 @@ public class Partita {
 		this.finita = true;
 	}
 
+
 	public boolean giocatoreIsVivo() {
-		return this.giocatore.getCfu()>0;
+		if(this.player.getCfu()!=0) return true;
+		return false;
 	}
 	
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.getLabirinto().setStanzaCorrente(stanzaCorrente);
+		this.stanzaCorrente = stanzaCorrente;
 	}
 
 	public Stanza getStanzaCorrente() {
-		return this.getLabirinto().getStanzaCorrente();
+		return this.stanzaCorrente;
 	}
-	
 
 }
+

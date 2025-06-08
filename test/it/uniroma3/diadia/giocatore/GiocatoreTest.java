@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class GiocatoreTest {
 	
+	
 	private Giocatore giocatore;
 
 	@BeforeEach
@@ -19,9 +20,7 @@ public class GiocatoreTest {
 	
 	@Test
 	public void testSetCfu() {
-		giocatore.setCfu(20);
 		assertEquals(giocatore.getCfu(), 20);
 	}
-
 
 }

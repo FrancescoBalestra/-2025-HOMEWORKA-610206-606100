@@ -1,7 +1,6 @@
 package it.uniroma3.diadia.comand;
 
-//import it.uniroma3.diadia.IO;
-
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoFine extends AbstractComando {
@@ -17,7 +16,6 @@ public class ComandoFine extends AbstractComando {
 
 	}
 
-	
 	@Override
 	public String getNome() {
 		return NOME;

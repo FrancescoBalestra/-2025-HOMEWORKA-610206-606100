@@ -1,14 +1,14 @@
 package it.uniroma3.diadia.comand;
 
-//import it.uniroma3.diadia.IO;
-
 import it.uniroma3.diadia.Partita;
+//import it.uniroma3.diadia.Proprietà;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoVai extends AbstractComando {
 	
 	private String direzione;
+
 	private final static String NOME = "vai";
 
 	/**
@@ -19,18 +19,18 @@ public class ComandoVai extends AbstractComando {
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza prossimaStanza = null;
 		if (this.direzione == null) {
-			this.getIo().mostraMessaggio("Dove vuoi andare? Devi specificare una direzione");
+			super.getIo().mostraMessaggio("Dove vuoi andare? Devi specificare una direzione");
 			return;
 		}
 
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 		if (prossimaStanza == null) {
-			this.getIo().mostraMessaggio("Direzione inesistente");
+			super.getIo().mostraMessaggio("Direzione inesistente");
 			return;
 		}
 
 		partita.setStanzaCorrente(prossimaStanza);
-		this.getIo().mostraMessaggio(partita.getStanzaCorrente().getNome());
+		super.getIo().mostraMessaggio(partita.getStanzaCorrente().getNome());
 		Giocatore giocatore = partita.getGiocatore();
 		giocatore.setCfu(giocatore.getCfu() - 1);
 	}
