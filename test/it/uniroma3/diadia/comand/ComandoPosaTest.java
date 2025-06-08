@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.comand;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Scanner;
+
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +28,7 @@ class ComandoPosaTest {
     @BeforeEach
     public void setUp() {
     	
-    	lab = new LabirintoBuilder()
+    	lab = Labirinto.newBuilder()
     			.addStanzaIniziale("atrio")
     			.addStanzaVincente("biblioteca")
     			.addAdiacenza("atrio", "biblioteca", "nord")
@@ -41,7 +43,7 @@ class ComandoPosaTest {
         this.borsa.addAttrezzo(this.lanterna);
         this.partita.getGiocatore().setBorsa(this.borsa);
 
-        this.posa.setIo(new IOConsole());
+        this.posa.setIo(new IOConsole(new Scanner(System.in)));
     }
     
     

@@ -13,7 +13,7 @@ class LabirintoTest {
 	
 	@BeforeEach
 	public void Setup() {
-		labirinto = new LabirintoBuilder()
+		labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addStanzaVincente("uscita")
 				.addAdiacenza("atrio", "uscita", "nord")
@@ -30,8 +30,8 @@ class LabirintoTest {
 	}
 	
 	@Test
-	public void testGetStanzaCorrente() {
-		assertEquals(stanzaCorrente, labirinto.getStanzaCorrente());
+	public void testGetStanzaIniziale() {
+		assertEquals(stanzaCorrente, labirinto.getStanzaIniziale());
 	}
 
 }

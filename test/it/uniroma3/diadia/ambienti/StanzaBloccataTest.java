@@ -3,8 +3,11 @@ package it.uniroma3.diadia.ambienti;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Scanner;
 
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.*;
@@ -21,8 +24,9 @@ class StanzaBloccataTest {
 	@BeforeEach
 	public void setUp() {
 		
-		lab = new LabirintoBuilder()
-				.addStanzaBloccataIniziale("Atrio", "nord", "ssap")
+		lab = Labirinto.newBuilder()
+				.addStanzaBloccata("Atrio", "nord", "ssap")
+				.setStanzaIniziale("Atrio")
 				.addStanzaVincente("Uscita")
 				.addAdiacenza("Atrio", "Uscita", "nord")
 				.getLabirinto();
@@ -32,7 +36,9 @@ class StanzaBloccataTest {
 		
 		this.vai = new ComandoVai();
 		this.pass = new Attrezzo("ssap", 1);
-		this.vai.setIo(new IOConsole()); 
+		
+		this.vai.setIo(new IOConsole(new Scanner(System.in)));
+
 			
 		
 	}

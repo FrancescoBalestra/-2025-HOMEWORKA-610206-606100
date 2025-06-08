@@ -1,12 +1,14 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.Scanner;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import it.uniroma3.diadia.*;
-import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.comand.*;
 
 class StanzaMagicaTest {
@@ -14,12 +16,11 @@ class StanzaMagicaTest {
 	private Labirinto lab;
 	private Partita partita;
 	private ComandoVai vai;
-	private StanzaMagica sm;
 	
 	
 	@BeforeEach
 	public void setUp() {
-		lab = new LabirintoBuilder()
+		lab = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addStanzaMagica("n10")
 				.addAttrezzo("pala", 1)
@@ -34,7 +35,7 @@ class StanzaMagicaTest {
 		vai = new ComandoVai();
 
 		
-		this.vai.setIo(new IOConsole());
+		this.vai.setIo(new IOConsole(new Scanner(System.in)));
 		
 	}
 	

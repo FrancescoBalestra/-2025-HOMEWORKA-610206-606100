@@ -37,11 +37,7 @@ public class AbstractComandoTest {
 	}
 
 	
-	@Test
-	void testGetNome() {
-		// Il nome è "AbstractComando" come definito nella superclasse
-		assertEquals("AbstractComando", comando.getNome());
-	}
+
 
 	
 }

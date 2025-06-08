@@ -2,12 +2,11 @@ package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class PartitaTest {
@@ -17,13 +16,14 @@ public class PartitaTest {
 
     @BeforeEach
     public void setup() {
-        labirinto = new LabirintoBuilder()
+        labirinto = Labirinto.newBuilder()
             .addStanzaIniziale("Atrio")
             .addStanzaVincente("Biblioteca")
             .getLabirinto();
 
         partita = new Partita(labirinto);
     }
+    
 
     @Test
     public void testVintaInizio() {

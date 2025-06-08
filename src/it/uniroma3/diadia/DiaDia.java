@@ -35,6 +35,11 @@ public class DiaDia {
 		this.partita = partita;
 		this.io = io;
 	}
+	
+	public DiaDia(IO io, Labirinto labirinto) {
+	    this(new Partita(labirinto), io);
+	}
+
 
 	public void gioca() {
 		String istruzione; 

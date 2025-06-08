@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.comand;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Scanner;
 
 
 
@@ -26,7 +27,7 @@ class ComandoPrendiTest {
 	@BeforeEach
 	public void setUp() {
 	
-		lab = new LabirintoBuilder()
+		lab = Labirinto.newBuilder()
     			.addStanzaIniziale("atrio")
     			.addAttrezzo("armadio", 20)
     			.addAttrezzo("lanterna", 3)
@@ -39,7 +40,7 @@ class ComandoPrendiTest {
 		borsa = new Borsa();
 		
 		this.partita.getGiocatore().setBorsa(this.borsa);
-		this.prendi.setIo(new IOConsole());
+		this.prendi.setIo(new IOConsole(new Scanner(System.in)));
 	}
 	
 	/* controllo che prendi non modifichi la borsa in caso di parametro nullo

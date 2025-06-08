@@ -2,10 +2,11 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.*;
 import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.comand.*;
@@ -21,7 +22,7 @@ class StanzaBuiaTest {
 	@BeforeEach
 	public void setUp() {
 		
-		lab = new LabirintoBuilder()
+		lab = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addStanzaBuia("laboratorio", "lanterna")
 				.addStanzaVincente("Uscita")
@@ -34,7 +35,7 @@ class StanzaBuiaTest {
 		lanterna = new Attrezzo("lanterna", 3);
 		sb = new StanzaBuia("laboratorio","lanterna");
 		
-		this.vai.setIo(new IOConsole()); 
+		this.vai.setIo(new IOConsole(new Scanner(System.in))); 
 			
 	}
 	

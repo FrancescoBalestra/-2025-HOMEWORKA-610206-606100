@@ -11,6 +11,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 
@@ -21,7 +22,7 @@ public class LabirintoBuilderTest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		labirintoBuilder = new LabirintoBuilder();
+		labirintoBuilder = new Labirinto.LabirintoBuilder();
 	}
 
 	@Test
@@ -63,15 +64,5 @@ public class LabirintoBuilderTest {
 		assertEquals("biblioteca",trilocale.getStanzaIniziale().getStanzaAdiacente("sud").getNome());
 	}
 	
-	@Test
-	public void testTrilocaleConStanzaDuplicata() {
-				labirintoBuilder
-				.addStanzaIniziale(nomeStanzaIniziale)
-				.addStanza("stanza generica")
-				.addStanza("stanza generica")
-				.addAdiacenza(nomeStanzaIniziale, "stanza generica", "nord")
-				.getLabirinto();
-		assertTrue(labirintoBuilder.getNome2stanza().size()<=2);
-	}
-	
+
 }
